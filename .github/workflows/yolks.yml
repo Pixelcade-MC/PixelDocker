@@ -36,4 +36,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/Pixelcade-MC/PixelcadeDocker:yolks-${{ matrix.tag }}
+            ghcr.io/pixelcade-mc/pixelcadedocker:yolks-${{ matrix.tag }}
