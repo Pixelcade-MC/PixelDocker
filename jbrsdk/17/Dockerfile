@@ -39,14 +39,20 @@ RUN set -eux; \
     ; \
     rm jbrsdk.tgz*; \
     \
-    downloadUrl='https://github.com/HotswapProjects/HotswapAgent/releases/download/1.4.2-SNAPSHOT/hotswap-agent-1.4.2-SNAPSHOT.jar'; \
-	downloadSha256='e4161650308194bc3c8174b521e84cb2f3434f3490404ceaad71db22296f5d8a'; \
+    downloadUrl='https://github.com/HotswapProjects/HotswapAgent/releases/download/RELEASE-1.4.1/hotswap-agent-1.4.1.jar'; \
+	downloadSha256='a496305b110f12837c1dfd59d20c02737ce2a06647ebfe02b77ffe13ee756872'; \
+    coreDownloadUrl='https://github.com/HotswapProjects/HotswapAgent/releases/download/RELEASE-1.4.1/hotswap-agent-core-1.4.1.jar'; \
+	coreDownloadSha256='feb97456165365a099a7daba2a83f5d68c800a35b53ee62a1efdbf07f44dbc74'; \
 	\
 	wget --progress=dot:giga -O hotswap-agent.jar "$downloadUrl"; \
 	echo "$downloadSha256 *hotswap-agent.jar" | sha256sum --strict --check -; \
 	\
+	wget --progress=dot:giga -O hotswap-agent-core.jar "$coreDownloadUrl"; \
+	echo "$coreDownloadSha256 *hotswap-agent-core.jar" | sha256sum --strict --check -; \
+	\
 	mkdir -p "$JAVA_HOME/lib/hotswap"; \
 	mv hotswap-agent.jar "$JAVA_HOME/lib/hotswap/hotswap-agent.jar"; \
+	mv hotswap-agent-core.jar "$JAVA_HOME/lib/hotswap/hotswap-agent-core.jar"; \
     \
     apt-mark auto '.*' > /dev/null; \
     [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
