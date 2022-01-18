@@ -20,8 +20,7 @@
 # SOFTWARE.
 #
 
-#FROM --platform=$TARGETOS/$TARGETARCH ghcr.io/pixelcade/docker:jbrsdk-17
-FROM jbrsdk-17
+FROM --platform=$TARGETOS/$TARGETARCH ghcr.io/Pixelcade-MC/PixelcadeDocker:jbrsdk-17
 
 RUN apt-get update -y \
     && apt-get install -y curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
@@ -31,5 +30,5 @@ USER container
 ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
-COPY ./entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 CMD [ "/bin/bash", "/entrypoint.sh" ]
