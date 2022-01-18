@@ -38,6 +38,16 @@ RUN set -eux; \
         --no-same-owner \
     ; \
     rm jbrsdk.tgz*; \
+    \
+    downloadUrl='https://github.com/HotswapProjects/HotswapAgent/releases/download/1.4.2-SNAPSHOT/hotswap-agent-1.4.2-SNAPSHOT.jar'; \
+	downloadSha256='e4161650308194bc3c8174b521e84cb2f3434f3490404ceaad71db22296f5d8a'; \
+	\
+	wget --progress=dot:giga -O hotswap-agent.jar "$downloadUrl"; \
+	echo "$downloadSha256 *hotswap-agent.jar" | sha256sum --strict --check -; \
+	\
+	mkdir -p "$JAVA_HOME/lib/hotswap"; \
+	mv hotswap-agent.jar "$JAVA_HOME/lib/hotswap/hotswap-agent.jar"; \
+    \
     apt-mark auto '.*' > /dev/null; \
     [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
